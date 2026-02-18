@@ -7,6 +7,23 @@ import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useFocusEffect } from '@react-navigation/native';
 import { getScans, ScanResult } from '../utils/storage';
 
+function QuickActionCard({ icon, label, status, onPress }: any) {
+    return (
+        <TouchableOpacity
+            onPress={onPress}
+            className="w-[30%] bg-white dark:bg-slate-800 p-4 rounded-[24px] shadow-sm border border-gray-50 dark:border-slate-800 h-32 justify-between"
+        >
+            <View className="w-10 h-10 bg-gray-50 rounded-full items-center justify-center">
+                <Ionicons name={icon} size={20} color="#1f2937" />
+            </View>
+            <View>
+                <Text className="font-bold text-gray-900 dark:text-white text-base">{label}</Text>
+                <Text className="text-gray-400 text-xs font-medium">{status}</Text>
+            </View>
+        </TouchableOpacity>
+    );
+}
+
 const HomeScreen = ({ navigation }: any) => {
     const [recentScans, setRecentScans] = useState<ScanResult[]>([]);
 
@@ -24,95 +41,89 @@ const HomeScreen = ({ navigation }: any) => {
             <StatusBar style="auto" />
             <ScrollView contentContainerStyle={{ paddingBottom: 100 }} showsVerticalScrollIndicator={false}>
                 {/* Header */}
-                <View className="px-6 pt-6 pb-4 flex-row justify-between items-center">
+                <View className="px-6 pt-6 pb-4 flex-row justify-between items-center bg-transparent">
                     <View>
-                        <Text className="text-gray-500 font-medium text-sm uppercase tracking-wider">Welcome Back</Text>
-                        <Text className="text-3xl font-bold text-gray-900 dark:text-white mt-1">AlzVision AI</Text>
+                        <Text className="text-gray-500 font-medium text-sm mb-1 uppercase tracking-wider">Keep moving today!</Text>
+                        <Text className="text-4xl font-black text-gray-900 dark:text-white">AlzVision AI</Text>
                     </View>
-                    <TouchableOpacity className="bg-white p-2 rounded-full shadow-sm border border-gray-100 dark:bg-slate-800 dark:border-slate-700">
-                        <Ionicons name="notifications-outline" size={24} color="#007AFF" />
-                    </TouchableOpacity>
+                    <View className="w-12 h-12 bg-gray-200 rounded-full items-center justify-center">
+                        <Text className="font-bold text-xl text-gray-700">A</Text>
+                    </View>
                 </View>
 
-                {/* Hero Card */}
+                {/* Hero Action Card */}
                 <Animated.View entering={FadeInDown.delay(100).duration(600)} className="mx-6 mt-4">
-                    <View className="bg-blue-600 rounded-3xl p-6 shadow-lg shadow-blue-200 dark:shadow-none overflow-hidden relative">
-                        <View className="z-10 relative">
-                            <Text className="text-white/80 font-medium mb-1">AI Health Assistant</Text>
-                            <Text className="text-white text-2xl font-bold mb-4 w-2/3">Early detection can save lives.</Text>
-                            <TouchableOpacity
-                                onPress={() => navigation.navigate('Scan')}
-                                className="bg-white px-6 py-3 rounded-xl self-start shadow-sm"
-                            >
-                                <Text className="text-blue-600 font-bold">Start New Scan</Text>
-                            </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Scan')}
+                        className="bg-blue-600 rounded-[32px] p-8 shadow-lg shadow-blue-200 flex-row items-center justify-between"
+                        style={{ minHeight: 160 }}
+                    >
+                        <View className="flex-1 mr-4">
+                            <View className="w-12 h-12 bg-white/20 rounded-full items-center justify-center mb-4">
+                                <Ionicons name="scan" size={24} color="white" />
+                            </View>
+                            <Text className="text-white text-2xl font-bold mb-1">Start New Scan</Text>
+                            <Text className="text-white/90 font-medium">Analyze MRI scans instantly with high precision AI.</Text>
                         </View>
-                        {/* Decorative circles */}
-                        <View className="absolute -right-10 -bottom-10 w-40 h-40 bg-blue-500/50 rounded-full" />
-                        <View className="absolute right-10 -top-10 w-24 h-24 bg-blue-400/30 rounded-full" />
-                    </View>
+                        <Ionicons name="arrow-forward" size={28} color="white" />
+                    </TouchableOpacity>
                 </Animated.View>
 
-                {/* Recent Activity */}
-                <Animated.View entering={FadeInDown.delay(200).duration(600)} className="mx-6 mt-8">
-                    <View className="flex-row justify-between items-center mb-4">
-                        <Text className="text-xl font-bold text-gray-900 dark:text-white">Recent Scans</Text>
-                        <TouchableOpacity onPress={() => navigation.navigate('History')}>
-                            <Text className="text-blue-600 font-medium">See All</Text>
-                        </TouchableOpacity>
+                {/* Quick Actions (Your connections style) */}
+                <View className="px-6 mt-8">
+                    <Text className="text-gray-500 font-bold mb-4 ml-1">Quick Actions</Text>
+                    <View className="flex-row justify-between">
+                        <QuickActionCard icon="time" label="History" status="View" onPress={() => navigation.navigate('History')} />
+                        <QuickActionCard icon="stats-chart" label="Trends" status="Analyze" onPress={() => navigation.navigate('Insights')} />
+                        <QuickActionCard icon="document-text" label="Reports" status="Export" onPress={() => { }} />
+                    </View>
+                </View>
+
+                {/* Recent Activity Section */}
+                <Animated.View entering={FadeInDown.delay(200).duration(600)} className="mx-6 mt-8 mb-32">
+                    <View className="flex-row items-center justify-between mb-4">
+                        <View className="flex-row items-center">
+                            <View className="bg-blue-600 px-3 py-1 rounded-full mr-3">
+                                <Text className="text-white text-xs font-bold">NEW</Text>
+                            </View>
+                            <Text className="text-xl font-bold text-gray-900 dark:text-white">Recent Scans</Text>
+                        </View>
+                        {/* Crown icon from reference image */}
+                        <View className="bg-blue-50 p-2 rounded-xl">
+                            <Ionicons name="medical" size={20} color="#2563eb" />
+                        </View>
                     </View>
 
-                    {/* Recent Scans List */}
-                    <ScrollView horizontal showsHorizontalScrollIndicator={false} className="-mx-6 px-6">
+                    {/* Sim Gamepad Large Bottom Card Style for List */}
+                    <View className="bg-white dark:bg-slate-800 rounded-[32px] p-2 shadow-sm min-h-[200px]">
                         {recentScans.length > 0 ? (
                             recentScans.map((item, index) => (
-                                <View key={index} className="w-72 bg-white dark:bg-slate-800 p-4 rounded-2xl mr-4 border border-gray-100 dark:border-slate-700 shadow-sm">
-                                    <View className="flex-row items-center mb-3">
-                                        <View className="w-10 h-10 rounded-full bg-blue-100 items-center justify-center mr-3">
-                                            <Ionicons name="medical" size={20} color="#007AFF" />
-                                        </View>
-                                        <View>
-                                            <Text className="text-gray-900 dark:text-white font-bold">MRI Scan #{item.id}</Text>
-                                            <Text className="text-gray-500 text-xs">{new Date(item.timestamp).toLocaleString()}</Text>
-                                        </View>
+                                <View key={index} className="flex-row items-center p-4 border-b border-gray-50 last:border-0">
+                                    <View className={`w-14 h-14 rounded-2xl items-center justify-center mr-4 ${item.label === 'Non_Demented' ? 'bg-green-100' : 'bg-red-50'
+                                        }`}>
+                                        <Ionicons
+                                            name={item.label === 'Non_Demented' ? "happy" : "alert-circle"}
+                                            size={28}
+                                            color={item.label === 'Non_Demented' ? "#16a34a" : "#dc2626"}
+                                        />
                                     </View>
-                                    <View className="flex-row justify-between items-end">
-                                        <View className={`px-3 py-1 rounded-lg ${
-                                            // Simple color mapping
-                                            item.label === 'Non_Demented' ? 'bg-green-100' :
-                                                item.label.includes('Very_Mild') ? 'bg-yellow-100' :
-                                                    item.label.includes('Mild') ? 'bg-orange-100' : 'bg-red-100'
-                                            }`}>
-                                            <Text className={`text-xs font-bold ${item.label === 'Non_Demented' ? 'text-green-700' :
-                                                item.label.includes('Very_Mild') ? 'text-yellow-800' :
-                                                    item.label.includes('Mild') ? 'text-orange-800' : 'text-red-700'
-                                                }`}>{item.label.replace(/_/g, ' ')}</Text>
-                                        </View>
-                                        <Text className="text-gray-400 text-xs">{item.confidence}% Confidence</Text>
+                                    <View className="flex-1">
+                                        <Text className="text-lg font-bold text-gray-900 dark:text-white">Scan #{item.id}</Text>
+                                        <Text className="text-gray-400 font-medium text-xs uppercase">{item.label.replace(/_/g, ' ')}</Text>
+                                    </View>
+                                    <View className="bg-gray-100 px-3 py-1 rounded-full">
+                                        <Text className="text-gray-600 font-bold text-xs">{item.confidence}%</Text>
                                     </View>
                                 </View>
                             ))
                         ) : (
-                            <View className="w-full p-4 bg-gray-50 rounded-2xl items-center">
-                                <Text className="text-gray-400">No recent scans found.</Text>
+                            <View className="h-48 items-center justify-center">
+                                <View className="w-20 h-20 bg-gray-100 rounded-full items-center justify-center mb-4">
+                                    <Ionicons name="scan-outline" size={32} color="#9ca3af" />
+                                </View>
+                                <Text className="text-gray-400 font-medium">No scans yet</Text>
                             </View>
                         )}
-                    </ScrollView>
-                </Animated.View>
-
-                {/* Daily Health Tip */}
-                <Animated.View entering={FadeInDown.delay(300).duration(600)} className="mx-6 mt-8 mb-6">
-                    <Text className="text-xl font-bold text-gray-900 dark:text-white mb-4">Daily Insight</Text>
-                    <View className="bg-indigo-50 dark:bg-slate-800 p-5 rounded-2xl border border-indigo-100 dark:border-slate-700 flex-row items-start">
-                        <View className="bg-indigo-100 p-2 rounded-xl mr-4">
-                            <Ionicons name="bulb-outline" size={24} color="#4F46E5" />
-                        </View>
-                        <View className="flex-1">
-                            <Text className="text-indigo-900 dark:text-white font-bold mb-1">Stay Active</Text>
-                            <Text className="text-indigo-700 dark:text-gray-300 text-sm leading-5">
-                                Regular physical exercise can help delay the onset of Alzheimer's symptoms and improve brain health.
-                            </Text>
-                        </View>
                     </View>
                 </Animated.View>
 

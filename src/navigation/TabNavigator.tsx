@@ -17,20 +17,30 @@ const TabNavigator = () => {
             screenOptions={({ route }) => ({
                 headerShown: false,
                 tabBarStyle: {
-                    position: 'absolute',
-                    bottom: 25,
-                    left: 20,
-                    right: 20,
-                    elevation: 0,
-                    backgroundColor: 'transparent',
-                    borderRadius: 25,
-                    height: 70,
+                    height: 65, // slightly taller for rounded top
+                    backgroundColor: '#ffffff',
                     borderTopWidth: 0,
+                    elevation: 20,
+                    shadowColor: '#000',
+                    shadowOpacity: 0.1,
+                    shadowRadius: 10,
+                    shadowOffset: { width: 0, height: -5 },
+                    borderTopLeftRadius: 24,
+                    borderTopRightRadius: 24,
+                    paddingTop: 8,
+                    paddingBottom: 8,
+                    position: 'absolute', // Needed to float *just* on top of content to show rounded corners properly against background
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
                 },
-                tabBarBackground: () => (
-                    <BlurView intensity={80} style={StyleSheet.absoluteFill} tint="light" />
-                ),
-                tabBarShowLabel: false,
+                tabBarShowLabel: true,
+                tabBarActiveTintColor: '#2563eb', // blue-600
+                tabBarInactiveTintColor: '#94a3b8',
+                tabBarLabelStyle: {
+                    fontSize: 10,
+                    fontWeight: '600',
+                },
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName: any;
 
@@ -46,26 +56,16 @@ const TabNavigator = () => {
                         iconName = focused ? 'person' : 'person-outline';
                     }
 
-                    const isScan = route.name === 'Scan';
-
-                    if (isScan) {
-                        return (
-                            <View className="mb-10 p-4 bg-blue-600 rounded-full shadow-lg shadow-blue-300 border-4 border-white dark:border-slate-900">
-                                <Ionicons name="scan" size={30} color="white" />
-                            </View>
-                        )
-                    }
-
-                    return <Ionicons name={iconName} size={24} color={focused ? '#007AFF' : '#94a3b8'} />;
+                    return <Ionicons name={iconName} size={24} color={color} />;
                 },
             })}
         >
-            <Tab.Screen name="Home" component={HomeScreen} />
-            <Tab.Screen name="History" component={HistoryScreen} />
-            <Tab.Screen name="Scan" component={ScanScreen} options={{ tabBarStyle: { display: 'none' } }} />
-            <Tab.Screen name="Insights" component={InsightsScreen} />
-            <Tab.Screen name="Account" component={AccountScreen} />
-        </Tab.Navigator>
+            <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarLabel: 'Home' }} />
+            <Tab.Screen name="History" component={HistoryScreen} options={{ tabBarLabel: 'History' }} />
+            <Tab.Screen name="Scan" component={ScanScreen} options={{ tabBarLabel: 'Scan' }} />
+            <Tab.Screen name="Insights" component={InsightsScreen} options={{ tabBarLabel: 'Insight' }} />
+            <Tab.Screen name="Account" component={AccountScreen} options={{ tabBarLabel: 'Profile' }} />
+        </Tab.Navigator >
     );
 };
 
