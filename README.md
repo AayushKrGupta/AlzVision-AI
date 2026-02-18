@@ -10,6 +10,24 @@ _Modern React Native interface for real-time medical AI inference_
 
 ---
 
+## 📸 Screenshots
+
+<div align="center">
+
+<img src="https://github.com/AayushKrGupta/AlzVision-AI/blob/main/assets/1.jpg" width="30%" />
+<img src="https://github.com/AayushKrGupta/AlzVision-AI/blob/main/assets/2.jpg" width="30%" />
+<img src="https://github.com/AayushKrGupta/AlzVision-AI/blob/main/assets/3.jpg" width="30%" />
+
+<br/>
+
+<img src="https://github.com/AayushKrGupta/AlzVision-AI/blob/main/assets/4.jpg" width="30%" />
+<img src="https://github.com/AayushKrGupta/AlzVision-AI/blob/main/assets/5.jpg" width="30%" />
+<img src="https://github.com/AayushKrGupta/AlzVision-AI/blob/main/assets/6.jpg" width="30%" />
+
+</div>
+
+---
+
 ## 📋 Overview
 
 AlzVision AI App is a modern cross-platform mobile application built using React Native and Expo. It provides an intuitive user interface for uploading MRI scans and receiving AI-powered Alzheimer stage predictions in real-time.
@@ -51,24 +69,6 @@ API --> AIModel["Vision Transformer Model"]
 AIModel --> Prediction["Prediction + Confidence"]
 Prediction --> MobileApp
 ```
-
----
-
-## 📸 Screenshots
-
-<div align="center">
-
-<img src="https://github.com/AayushKrGupta/AlzVision-AI/blob/main/assets/1.jpg" width="30%" />
-<img src="https://github.com/AayushKrGupta/AlzVision-AI/blob/main/assets/2.jpg" width="30%" />
-<img src="https://github.com/AayushKrGupta/AlzVision-AI/blob/main/assets/3.jpg" width="30%" />
-
-<br/>
-
-<img src="https://github.com/AayushKrGupta/AlzVision-AI/blob/main/assets/4.jpg" width="30%" />
-<img src="https://github.com/AayushKrGupta/AlzVision-AI/blob/main/assets/5.jpg" width="30%" />
-<img src="https://github.com/AayushKrGupta/AlzVision-AI/blob/main/assets/6.jpg" width="30%" />
-
-</div>
 
 ---
 
